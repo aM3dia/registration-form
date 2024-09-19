@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contest Registration</title>
+<!--page style-->
+<style>
+    body {
+        background-color: #f4f4f9;
+        margin: auto;
+        width: 40%;
+        padding: 20px;
+        justify-content: center;
+        align-items: center;
+        min-height: 90vh;
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    h1 {
+        margin-bottom: 0px;
+    }
+
+    form {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    select {
+        width: 95%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    input[type="checkbox"] {
+        margin-right: 10px;
+    }
+
+    select {
+        width: 100%;
+        padding: 10px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    .terms-link {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .terms-link:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+
+<!--page content-->
+<body>
+   <h1>Enter to Win $500!</h1>
+   <p>Fill out the form below for you chance to win.</p>
+   <form action="#" method="POST" onsubmit="return validateForm()">
+<!--Personal Information-->
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone"><br><br>
+
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob" onblur="return dobCheck()" required><br>
+        <label for="age">
+            <input id="ageCheckbox" type="checkbox" name="age" required>I am over 18 years of age.
+        </label><br><br>
+<!--Contest specific-->
+        <label for="discovery">How did you find out about this contest?</label>
+        <select input="discovery" id="options" name="discovery" required>
+            <option value="" disabled select>Select an option</option>
+            <option value="social">Social Media</option>
+            <option value="friend">Friend or relative</option>
+            <option value="email">Email Newsletter</option>
+            <option value="website">Website</option>
+            <option value="other">Other</option>
+        </select><br><br>
+<!--Consent and Agreement-->
+        <label for="agree"><input id="agreeCheckbox" type="checkbox" name="terms" required>I agree to the <a href="#" class="terms-link"> Terms and Conditions</a>.</label><br><br>
+        <label for="optin"><input type="checkbox" name="optin">Yes, I want to receive promotional emails.</label><br><br>
+<!--Submit-->
+        <button type="submit">Enter to Win</button>
+    </form>
+
+<!--Validation (JavaScript)-->
+<script>
+    function validateForm () {
+         const dob = document.getElementById('dob').value;
+         const ageCheckbox = document.getElementById('ageCheckbox');
+         
+         //check the person's age
+         if (dob) {
+             const dobDate = new Date(dob);
+             const today = new Date();
+             const age = today.getFullYear() - dobDate.getFullYear();
+             const monthDiff = today.getMonth() - dobDate.getMonth();
+             if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
+                 age--;
+             }
+ 
+             //validation
+             if (age < 18) {
+                 alert("You must be over 18 to enter.");
+                 return false;
+             }
+         }
+
+         //submitting
+         return true;
+    }
+ 
+    function dobCheck() {
+         const dob = document.getElementById('dob').value;
+         if (dob) {
+             const dobDate = new Date(dob);
+             const today = new Date();
+ 
+             if (dobDate > today) {
+                 alert("Date of birth cannot be in the future.");
+                 document.getElementById('dob').value = '';
+                 return false;
+             }
+         }
+         return true;
+    }
+ 
+ </script>
+</body>
+</html>
